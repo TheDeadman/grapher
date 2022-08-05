@@ -36,7 +36,7 @@ function Timeline({ data, title, minTime, maxTime, secondWidth }) {
         <div className="section-markers">
           {secondSections}
           <div className="second-sections" style={{ flex: 1 }}>
-            {secondWidth.remainder}&nbsp;
+            {(maxTime/1000).toFixed(3)}&nbsp;
           </div>
         </div>
         <div className="timeline-entry-list">
