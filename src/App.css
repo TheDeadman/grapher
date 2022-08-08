@@ -38,9 +38,21 @@
   height: calc(100% - 30px);
 }
 
+.timeline-entry-list > div:nth-child(even) > div {
+  background-color: rgb(13 215 0 / 52%);
+  border: thin solid rgb(13 215 0 / 100%)
+}
+
+.timeline-entry-list> div:nth-child(odd) > div {
+  background-color: rgb(0 24 197 / 62%);
+  border: thin solid rgb(0 78 255)
+}
+
 .timeline-entry {
   position: relative;
   height: 60px;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .tooltip {

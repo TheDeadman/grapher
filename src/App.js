@@ -31,6 +31,7 @@ function App() {
   );
   const [minTime, setMinTime] = useState(baseTime);
   const [compareMode, setCompareMode] = useState(false);
+  const [inputData, setInputData] = useState(false);
 
   const secondWidthData = useMemo(() => {
     return {
@@ -82,14 +83,15 @@ function App() {
         </div>
       </div>
 
-      <Timeline
-        data={data}
-        title="Zebra Tablet"
-        minTime={minTime}
-        maxTime={maxTime}
-        secondWidth={secondWidthData}
-      />
-      {!compareMode && (
+      {!inputData &&
+        <Timeline
+          data={data}
+          title="Zebra Tablet"
+          minTime={minTime}
+          maxTime={maxTime}
+          secondWidth={secondWidthData}
+        />}
+      {!compareMode && !inputData && (
         <>
           <Timeline
             data={data3}
@@ -131,6 +133,8 @@ function App() {
           />
         </>
       )}
+            }
+
     </div>
   );
 }

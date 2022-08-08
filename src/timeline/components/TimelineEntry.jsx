@@ -17,7 +17,7 @@ const TimelineEntry = ({
         style={{
           width: `${(endPercent - startPercent) * 100}%`,
           left: `${startPercent * 100}%`,
-          backgroundColor: bgColor,
+          // backgroundColor: bgColor,
           color: textColor,
           overflow: "hidden",
         }}

@@ -77,7 +77,7 @@ function Timeline({ data, title, minTime, maxTime, secondWidth }) {
                   duration={entry.duration}
                   startPercent={start}
                   endPercent={end}
-                  bgColor={bgColor}
+                  // bgColor={bgColor}
                   textColor={textColor}
                   title={entry.name}
                   setTooltipData={setTooltipData}
