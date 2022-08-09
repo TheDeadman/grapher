@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
 
 import Stack from '@mui/material/Stack';
 
@@ -50,15 +54,21 @@ function App() {
     <>
     <Stack spacing={2} sx={{ flexGrow: 1 }}>
       <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
+        <CssBaseline />
         <Header />
         <div className="App">
-          <Controls />
+          <Routes>
+            <Route path="/" element={<>
+              <Controls />
+              <TimelineList />
+            </>} />
+          </Routes>
 
-          <TimelineList />
+
+
         </div>
       </ThemeProvider>
-      </Stack>
+    </Stack>
     </>
   );
 }
