@@ -9,7 +9,7 @@
 }
 
 .App {
-  background-color: #282c34;
+  /* background-color: #282c34; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -24,7 +24,7 @@
 
 .timeline { 
   width: 97%;
-  height: 450px;
+  height: 1450px;
   border: thin solid white;
   position: relative;
   overflow: hidden;

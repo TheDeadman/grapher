@@ -1,49 +1,28 @@
-import { useState, useMemo } from "react";
-import Tooltip from "./components/Tooltip";
-import TimelineEntry from "./components/TimelineEntry";
+import { useState, useMemo, useEffect } from "react";
+import Tooltip from "./Tooltip";
+import TimelineEntry from "./TimelineEntry";
+import { useSelector } from "react-redux";
+import { selectEntriesByName,  selectMaxTime, selectMinTime, selectTooltipData } from "../timelineSlice";
+import { SecondSections } from "./SecondSections";
 
 const getPercentOfMax = (num, max, base) => {
   return num / (max - base);
 };
 
 const getEndPercentOfMax = (num, max, base) => {
-  console.log(num, max, base, num / (max - base));
   return num / (max - base);
 };
 
-function Timeline({ data, title, minTime, maxTime, secondWidth }) {
-  const [tooltipData, setTooltipData] = useState({ text: "", left: 0, top: 0 });
+function Timeline({ title }) {
+  const tooltipData = useSelector(selectTooltipData);
+  const data = useSelector(selectEntriesByName(title));
+  const minTime = useSelector(selectMinTime)
+  const maxTime = useSelector(selectMaxTime)
 
-  const secondSections = useMemo(() => {
-    let sections = [];
-    for (let i = 0; i < secondWidth.sections; i++) {
-      sections.push(
-        <div
-          className="second-sections"
-          style={{ width: `${secondWidth.width * 100}%` }}
-        >
-          {i + 1}&nbsp;
-        </div>
-      );
-    }
-    return sections;
-  }, [secondWidth]);
-
-  return (
-    <>
-      <h3>{title}</h3>
-      <div className="timeline">
-        <div className="section-markers">
-          {secondSections}
-          <div className="second-sections" style={{ flex: 1 }}>
-            {(maxTime/1000).toFixed(3)}&nbsp;
-          </div>
-        </div>
-        <div className="timeline-entry-list">
-          {data
+  // const timelineEntries = data
+  const timelineEntries = useMemo(() => data
             .filter((item) => {
-              console.log(item, minTime);
-              if (item.startTime >= minTime) {
+              if (item.startTime + item.duration >= minTime) {
                 return true;
               }
               return false;
@@ -69,7 +48,7 @@ function Timeline({ data, title, minTime, maxTime, secondWidth }) {
               const textColor = i % 2 === 0 ? "white" : "black";
               return (
                 <TimelineEntry
-                  key={entry.name}
+                  key={`${title}-${entry.name}-${entry.startTime}`}
                   baseTime={minTime}
                   endTimeText={entry.startTime + entry.duration}
                   start={entry.startTime}
@@ -77,13 +56,20 @@ function Timeline({ data, title, minTime, maxTime, secondWidth }) {
                   duration={entry.duration}
                   startPercent={start}
                   endPercent={end}
-                  // bgColor={bgColor}
+                  bgColor={bgColor}
                   textColor={textColor}
                   title={entry.name}
-                  setTooltipData={setTooltipData}
                 />
               );
-            })}
+            }), [data]);
+
+  return (
+    <>
+      <h3>{title}</h3>
+      <div className="timeline">
+        <SecondSections />
+        <div className="timeline-entry-list">
+          {timelineEntries}
         </div>
       </div>
       {tooltipData.text && (

@@ -1,3 +1,6 @@
+import { useDispatch } from "react-redux";
+import { setTooltipData } from "../timelineSlice";
+
 const TimelineEntry = ({
   start,
   startPercent,
@@ -5,33 +8,37 @@ const TimelineEntry = ({
   end,
   endPercent,
   duration,
-  setTooltipData,
   title,
-  bgColor,
   textColor,
 }) => {
+  const dispatch = useDispatch();
   return (
     <div>
       <div
         className="timeline-entry"
         style={{
-          width: `${(endPercent - startPercent) * 100}%`,
+          width: `${
+            (endPercent - startPercent) * 100 > 0.15
+              ? (endPercent - startPercent) * 100
+              : 0.15
+          }%`,
           left: `${startPercent * 100}%`,
-          // backgroundColor: bgColor,
           color: textColor,
           overflow: "hidden",
         }}
         onMouseMove={(e) => {
           console.log(e);
-          setTooltipData({
-            text: `${title} - ${start} - ${endTimeText} - ${duration}`,
-            left: e.pageX + 15,
-            top: e.pageY,
-          });
+          dispatch(
+            setTooltipData({
+              text: `${title} - ${start} - ${endTimeText} - ${duration}`,
+              left: e.pageX + 15,
+              top: e.pageY,
+            })
+          );
         }}
         onMouseLeave={(e) => {
           console.log(e);
-          setTooltipData({ text: "", left: 0, top: 0 });
+          dispatch(setTooltipData({ text: "", left: 0, top: 0 }));
         }}
       >
         {title}-{(duration / 1000).toFixed(3)}
