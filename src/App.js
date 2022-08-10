@@ -23,6 +23,7 @@ import data6 from "./features/timeline/data/data6";
 import { useDispatch } from "react-redux";
 import { setTimelineEntries, setMaxTime } from "./features/timeline/timelineSlice";
 import { TimelineList } from "./features/timeline/TimelineList";
+import { EntryList } from "./features/entryList/EntryList";
 
 
 const darkTheme = createTheme({
@@ -44,8 +45,6 @@ function App() {
       })
     );
   }, []);
-  const [minTime, setMinTime] = useState(baseTime);
-  const [compareMode, setCompareMode] = useState(false);
 
   useEffect(() => {
     performance.measure("app rendered");
@@ -58,10 +57,11 @@ function App() {
         <Header />
         <div className="App">
           <Routes>
-            <Route path="/" element={<>
+            <Route path="/" exact element={<>
               <Controls />
               <TimelineList />
             </>} />
+            <Route path="/list" element={<EntryList />} />
           </Routes>
 
 

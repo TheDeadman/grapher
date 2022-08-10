@@ -55,6 +55,10 @@ export const timelineSlice = createSlice({
         remainder: state.maxTime % 1000,
       };
     },
+    deleteEntryByName: (state, action) => {
+      delete state.data[action.payload];
+      return state;
+    },
     // EXAMPLE - 1A
     setMaxTime: (state, action) => {
       state.maxTime = action.payload.maxTime;
@@ -97,7 +101,7 @@ export const timelineSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setTimelineEntries, setTooltipData, setMaxTime, setMinTime, toggleCompareMode } =
+export const { deleteEntryByName, setTimelineEntries, setTooltipData, setMaxTime, setMinTime, toggleCompareMode } =
   timelineSlice.actions;
 
 export const selectIsCompareMode = (state) => {
