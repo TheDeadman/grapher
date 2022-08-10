@@ -72,6 +72,9 @@
 
 .second-sections {
   border-right: thin solid white;
+  text-align: right;
+  font-size: 15px;
+  overflow: hidden;
 }
 
 @keyframes App-logo-spin {

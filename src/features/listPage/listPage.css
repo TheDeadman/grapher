@@ -1,0 +1,9 @@
+.list-page-buttons {
+    display: flex;
+    width: 600px;
+    justify-content: space-evenly;
+}
+
+.list-page-buttons > button {
+    width: 166px;
+}

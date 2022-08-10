@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setTooltipData } from "../timelineSlice";
+import { setTooltipData } from "../../../timelineData/timelineSlice";
 
 const TimelineEntry = ({
   start,
@@ -17,11 +17,10 @@ const TimelineEntry = ({
       <div
         className="timeline-entry"
         style={{
-          width: `${
-            (endPercent - startPercent) * 100 > 0.15
-              ? (endPercent - startPercent) * 100
-              : 0.15
-          }%`,
+          width: `${(endPercent - startPercent) * 100 > 0.15
+            ? (endPercent - startPercent) * 100
+            : 0.15
+            }%`,
           left: `${startPercent * 100}%`,
           color: textColor,
           overflow: "hidden",

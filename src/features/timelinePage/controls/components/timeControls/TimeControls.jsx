@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { selectIsMovingMaxPosition, selectIsMovingMinPosition, selectTimePositions, setIsMovingMaxPosition, setIsMovingMinPosition, setMaxTimePosition, setMinTimePosition } from "./timeControlsSlice";
-import { setMaxTime, setMinTime, selectMinTime, selectMaxTime, selectBaseMaxTime } from "../../../timeline/timelineSlice";
+import { setMaxTime, setMinTime, selectMinTime, selectMaxTime, selectBaseMaxTime } from "../../../../timelineData/timelineSlice";
 
 const TimeSlider = () => {
     const boxRef = useRef();
@@ -13,7 +13,6 @@ const TimeSlider = () => {
     const isMovingMaxPosition = useSelector(selectIsMovingMaxPosition);
 
     const trackMousePosition = (e) => {
-        console.log(boxRef.current)
         if (isMovingMaxPosition) {
             console.log(e)
 
@@ -113,65 +112,47 @@ const TimeSlider = () => {
     )
 }
 
-export const TimeControls = () => {
+const TimeControlFields = () => {
     const dispatch = useDispatch();
     const minTime = useSelector(selectMinTime);
     const maxTime = useSelector(selectMaxTime);
     const baseMaxTime = useSelector(selectBaseMaxTime);
 
     return (
-        <>
-            <div>
-                <TextField
-                    type="number"
-                    id="outlined-basic"
-                    label="Min Time:"
-                    value={minTime}
-                    onChange={(e) =>
-                        e.target.value
-                            ? dispatch(setMinTime(parseInt(e.target.value)))
-                            : 0
+        <div>
+            <TextField
+                type="number"
+                id="outlined-basic"
+                label="Min Time:"
+                value={minTime}
+                onChange={(e) =>
+                    e.target.value
+                        ? dispatch(setMinTime(parseInt(e.target.value)))
+                        : 0
+                }
+                variant="filled"
+            />
+            &nbsp;&nbsp;&nbsp;
+            <TextField
+                type="number"
+                id="outlined-basic"
+                label="Max Time:"
+                value={maxTime}
+                onChange={(e) => {
+                    console.log("???", e.target.value)
+                    if (e.target.value) {
+                        dispatch(setMaxTime({ maxTime: parseInt(e.target.value), baseMaxTime: baseMaxTime }))
                     }
-                    variant="filled"
-                />
-                &nbsp;&nbsp;&nbsp;
-                <TextField
-                    type="number"
-                    id="outlined-basic"
-                    label="Max Time:"
-                    value={maxTime}
-                    onChange={(e) => {
-                        console.log("???", e.target.value)
-                        if (e.target.value) {
-                            dispatch(setMaxTime({ maxTime: parseInt(e.target.value), baseMaxTime: baseMaxTime }))
-                        } 
-                    }}
-                    variant="filled"
-                />
-                {/* <label>Min Time: </label>
-        <input
-            type="number"
-            id="fname"
-            name="fname"
-            onChange={(e) =>
-                e.target.value
-                    ? dispatch(setMinTime(parseInt(e.target.value)))
-                    : 0
-            }
-        />
-        &nbsp;&nbsp;&nbsp;
-        <label>Max Time:</label>
-        <input
-            type="number"
-            id="fname"
-            name="fname"
-            onChange={(e) =>
-                e.target.value
-                    ? dispatch(setMaxTime(parseInt(e.target.value)))
-                    : 0
-            }
-        /> */}
-            </div>
+                }}
+                variant="filled"
+            />
+        </div>
+    )
+}
+export const TimeControls = () => {
+    return (
+        <>
+            <TimeControlFields />
             <TimeSlider />
         </>
     )

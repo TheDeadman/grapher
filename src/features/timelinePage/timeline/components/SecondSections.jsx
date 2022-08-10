@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
 import { useSelector } from "react-redux";
-import { selectSecondWidthData } from "../timelineSlice";
+import { selectMaxTime, selectMinTime, selectSecondWidthData } from "../../../timelineData/timelineSlice";
 
 export const SecondSections = () => {
     const secondWidthData = useSelector(selectSecondWidthData);
+    const minTime = useSelector(selectMinTime);
+    const maxTime = useSelector(selectMaxTime);
 
     const secondSectionMarkers = useMemo(() => {
         console.debug("SECONDSECTIONS")
@@ -15,18 +17,18 @@ export const SecondSections = () => {
                     className="second-sections"
                     style={{ width: `${secondWidthData.width * 100}%` }}
                 >
-                    {i + 1}&nbsp;
+                    {(minTime + i + 1).toFixed(2)}&nbsp;
                 </div>
             );
         }
         return sections;
-    }, [secondWidthData]);
+    }, [secondWidthData, minTime]);
 
     return (
         <div className="section-markers">
             {secondSectionMarkers}
             <div className="second-sections" style={{ flex: 1 }}>
-                {secondWidthData.remainder}&nbsp;
+                {maxTime.toFixed(2)}&nbsp;
             </div>
         </div>
     )
