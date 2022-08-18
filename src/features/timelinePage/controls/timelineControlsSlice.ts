@@ -19,6 +19,7 @@ const initialState = {
   isMovingMaxPosition: false,
   minTimePosition: 0,
   maxTimePosition: 0,
+  rowCount: 10,
 };
 
 export const timeControlsSlice = createSlice({
@@ -41,6 +42,12 @@ export const timeControlsSlice = createSlice({
       state.minTimePosition = 0;
       state.maxTimePosition = 100;
     },
+    increaseRowCount: (state) => {
+      state.rowCount = state.rowCount + 1;
+    },
+    decreaseRowCount: (state) => {
+      state.rowCount = state.rowCount - 1;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -60,7 +67,7 @@ export const timeControlsSlice = createSlice({
         state.maxTimePosition = 100;
         state.minTimePosition = 0;
       })
-      .addDefaultCase((state, action) => {});
+      .addDefaultCase((state, action) => { });
   },
 });
 
@@ -70,6 +77,8 @@ export const {
   setIsMovingMaxPosition,
   setIsMovingMinPosition,
   resetTimePositions,
+  increaseRowCount,
+  decreaseRowCount
 } = timeControlsSlice.actions;
 
 // EXAMPLE 3 B - rendering of time components
@@ -90,6 +99,10 @@ export const selectIsMovingMinPosition = (state: RootState) => {
 
 export const selectIsMovingMaxPosition = (state: RootState) => {
   return state.timeControls.isMovingMaxPosition;
+};
+
+export const selectRowCount = (state: RootState) => {
+  return state.timeControls.rowCount;
 };
 
 export default timeControlsSlice.reducer;

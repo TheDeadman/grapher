@@ -24,10 +24,10 @@
 
 .timeline { 
   width: 97%;
-  height: 1450px;
   border: thin solid white;
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .timeline-entry-list {

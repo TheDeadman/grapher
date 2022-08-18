@@ -9,6 +9,7 @@ import {
 } from "../../../timelineData/timelineSlice";
 import { SecondSections } from "./SecondSections";
 import { useAppSelector } from "../../../../redux/hooks";
+import { selectRowCount } from "features/timelinePage/controls/timelineControlsSlice";
 
 const getPercentOfMax = (num: number, max: number, base: number) => {
   return num / (max - base);
@@ -23,6 +24,7 @@ function Timeline({ id }: { id: string }) {
   const dataSet = useAppSelector(selectDataSetById(id));
   const minTime = useAppSelector(selectMinTime);
   const maxTime = useAppSelector(selectMaxTime);
+  const rowCount = useAppSelector(selectRowCount);
 
   // const timelineEntries = data
   const timelineEntries = useMemo(
@@ -72,7 +74,7 @@ function Timeline({ id }: { id: string }) {
   return (
     <>
       <h3>{dataSet?.name}</h3>
-      <div className="timeline">
+      <div className="timeline" style={{ height: `calc(${rowCount * 60}px + 30px)` }}>
         <SecondSections />
         <div className="timeline-entry-list">{timelineEntries}</div>
       </div>

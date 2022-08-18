@@ -1,24 +1,43 @@
 import { Button } from "@mui/material";
 import { resetTimelineEntrys } from "features/timelineData/timelineSlice";
-import { resetTimePositions } from "../timelineControlsSlice";
-import { useAppDispatch } from "redux/hooks";
+import { decreaseRowCount, increaseRowCount, resetTimePositions, selectRowCount } from "../timelineControlsSlice";
+import { useAppDispatch, useAppSelector } from "redux/hooks";
 
 // EXAMPLE - 2 A
 export const ButtonControls = () => {
   const dispatch = useAppDispatch();
-
+  const rowCount = useAppSelector(selectRowCount);
   return (
-    <div className="control-buttons">
-      <Button variant="outlined" onClick={() => dispatch(resetTimePositions())}>
-        Reset Time
-      </Button>
-      <Button
-        variant="outlined"
-        onClick={() => dispatch(resetTimelineEntrys())}
-      >
-        Reset Entries
-      </Button>
-    </div>
+    <>
+
+      <div className="control-buttons">
+        <Button variant="outlined" onClick={() => dispatch(resetTimePositions())}>
+          Reset Time
+        </Button>
+        <Button
+          variant="outlined"
+          onClick={() => dispatch(resetTimelineEntrys())}
+        >
+          Reset Entries
+        </Button>
+      </div>
+      <div className="control-buttons">
+
+        <Button
+          variant="outlined"
+          onClick={() => dispatch(increaseRowCount())}
+        >
+          Increase Rows
+        </Button>
+        Rows - {rowCount}
+        <Button
+          variant="outlined"
+          onClick={() => dispatch(decreaseRowCount())}
+        >
+          Decrease Rows
+        </Button>
+      </div>
+    </>
   );
 };
 
