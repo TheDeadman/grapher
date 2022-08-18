@@ -9,13 +9,16 @@ import {
   selectHasValidationError,
   selectNewEntryName,
   selectNewEntryPerformanceJson,
+  selectNewEntryStartTime,
   setNewEntryName,
   setNewEntryPerformanceJson,
+  setNewEntryStartTime,
 } from "../listPageSlice";
 
 export const NewEntry = () => {
   const dispatch = useAppDispatch();
   const entryName = useAppSelector(selectNewEntryName);
+  const entryStartTime = useAppSelector(selectNewEntryStartTime);
   const performanceJson = useAppSelector(selectNewEntryPerformanceJson);
   const hasValidationError = useAppSelector(selectHasValidationError);
   return (
@@ -41,6 +44,14 @@ export const NewEntry = () => {
           error={hasValidationError.entryName}
           onChange={(e) => dispatch(setNewEntryName(e.target.value))}
         />
+
+        <TextField
+          fullWidth
+          id="outlined-required"
+          label="Start Time"
+          value={entryStartTime}
+          onChange={(e) => dispatch(setNewEntryStartTime(e.target.value))}
+        />
         <TextField
           spellCheck="false"
           fullWidth
@@ -64,6 +75,7 @@ export const NewEntry = () => {
               saveNewEntry({
                 entryName: entryName,
                 performanceJsonString: performanceJson,
+                startTime: entryStartTime
               })
             )
           }

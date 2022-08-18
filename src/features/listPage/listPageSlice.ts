@@ -11,6 +11,7 @@ const initialState = {
       entryName: true,
       performanceJson: true,
     },
+    startTime: 0
   },
 };
 
@@ -35,6 +36,9 @@ export const listPageSlice = createSlice({
       } else {
         state.newEntryData.hasValidationError.entryName = true;
       }
+    },
+    setNewEntryStartTime: (state, action) => {
+      state.newEntryData.startTime = action.payload;
     },
     setNewEntryPerformanceJson: (state, action) => {
       state.newEntryData.performanceJson = action.payload;
@@ -69,6 +73,7 @@ export const {
   closeNewEntryForm,
   setNewEntryName,
   setNewEntryPerformanceJson,
+  setNewEntryStartTime,
   saveNewEntry,
 } = listPageSlice.actions;
 
@@ -76,6 +81,8 @@ export const selectIsNewEntryFormOpen = (state: RootState) =>
   state.listPage.isNewEntryFormOpen;
 export const selectNewEntryName = (state: RootState) =>
   state.listPage.newEntryData.entryName;
+export const selectNewEntryStartTime = (state: RootState) =>
+  state.listPage.newEntryData.startTime;
 export const selectNewEntryPerformanceJson = (state: RootState) =>
   state.listPage.newEntryData.performanceJson;
 export const selectHasValidationError = (state: RootState) => {

@@ -24,7 +24,7 @@ const setMaxTimePosition = createAction<
   "timeControls/setMaxTimePosition"
 >("timeControls/setMaxTimePosition");
 const resetTimePositions = createAction("timeControls/resetTimePositions");
-const saveNewEntry = createAction<{ entryName: string; performanceJsonString: string }, "listPage/saveNewEntry">(
+const saveNewEntry = createAction<{ entryName: string; performanceJsonString: string, startTime: string }, "listPage/saveNewEntry">(
   "listPage/saveNewEntry"
 );
 
@@ -41,6 +41,7 @@ export type TimelineDataSet = {
   name: string;
   data: TimelineEntry[];
   id?: string;
+  startTime?: number;
 };
 
 const getMaxTime = (arr: TimelineEntry[]) => {
@@ -236,6 +237,7 @@ export const timelineSlice = createSlice({
             name: action.payload.entryName,
             id: nanoid(),
             data: addIdtoArrayItems(JSON.parse(action.payload.performanceJsonString)),
+            startTime: parseInt(action.payload.startTime)
           },
         ];
 

@@ -46,9 +46,13 @@ function Timeline({ id }: { id: string }) {
           }
         })
         .map((entry, i) => {
-          const endTime = entry.startTime + entry.duration - minTime;
+          let startTime = entry.startTime;
+          if (dataSet.startTime) {
+            startTime = entry.startTime - dataSet.startTime;
+          }
+          const endTime = startTime + entry.duration - minTime;
           const start = getPercentOfMax(
-            entry.startTime - minTime,
+            startTime - minTime,
             maxTime,
             minTime
           );
@@ -57,8 +61,8 @@ function Timeline({ id }: { id: string }) {
           return (
             <TimelineEntry
               key={entry.id}
-              endTimeText={entry.startTime + entry.duration}
-              start={entry.startTime}
+              endTimeText={startTime + entry.duration}
+              start={startTime}
               end={endTime}
               duration={entry.duration}
               startPercent={start}
